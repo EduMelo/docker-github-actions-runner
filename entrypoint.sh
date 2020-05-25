@@ -6,7 +6,6 @@ export PATH=$PATH:/actions-runner
 _RUNNER_NAME=${RUNNER_NAME:-default}
 _RUNNER_WORKDIR=${RUNNER_WORKDIR:-/_work}
 _ORG_RUNNER=${ORG_RUNNER:-false}
-_LABELS=${LABELS:-default}
 _SHORT_URL=${REPO_URL}
 
 if [[ -n "${ACCESS_TOKEN}" ]]; then
@@ -37,14 +36,16 @@ if [[ -n "${ACCESS_TOKEN}" ]]; then
 fi
 
 echo "Configuring"
+echo "url: $_SHORT_URL"
+echo "token: $RUNNER_TOKEN"
+echo "name: $RUNNER_NAME"
 
 ./config.sh \
     --url "${_SHORT_URL}" \
     --token "${RUNNER_TOKEN}" \
     --name "${_RUNNER_NAME}" \
-    --work "${_RUNNER_WORKDIR}" \
-    --labels "${_LABELS}" \
     --unattended \
     --replace
 
-./run.sh
+./run.sh > _diag/run.log &
+tail -f _diag/run.log
