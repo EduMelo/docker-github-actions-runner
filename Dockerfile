@@ -1,8 +1,8 @@
 # hadolint ignore=DL3007
-FROM myoung34/github-runner-base:latest
+FROM edumelo/github-runner-base:latest
 LABEL maintainer="myoung34@my.apsu.edu"
 
-ARG GH_RUNNER_VERSION="2.169.1"
+ARG GH_RUNNER_VERSION="2.262.1"
 ARG TARGETPLATFORM
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
